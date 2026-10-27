@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Bold Neon Lime asymmetric card silhouette inside 66dp safe zone -->
+    <path
+        android:fillColor="#DFFF65"
+        android:pathData="M34,28 L60,28 C64,28 66,30 66,34 L66,38 C66,42 68,44 72,44 L76,44 C80,44 82,46 82,50 L82,72 C82,77.5 77.5,82 72,82 L34,82 C28.5,82 24,77.5 24,72 L24,38 C24,32.5 28.5,28 34,28 Z" />
+    <!-- Lavender accent circle in top-right notch -->
+    <path
+        android:fillColor="#C279F8"
+        android:pathData="M75,34 m-6,0 a6,6 0 1,1 12,0 a6,6 0 1,1 -12,0" />
+    <!-- Bold dark checkmark inside the lime card -->
+    <path
+        android:fillColor="#171717"
+        android:pathData="M46.5,64.2 L36.8,54.5 L40.3,51.0 L46.5,57.2 L62.7,41.0 L66.2,44.5 Z" />
+</vector>

@@ -1,0 +1,43 @@
+# Android Studio / Gradle
+.gradle/
+.kotlin/
+.idea/
+*.iml
+**/build/
+/captures/
+local.properties
+.externalNativeBuild/
+.cxx/
+*.hprof
+*.log
+*.prof
+*.profm
+
+# Credentials and signing: never commit to a public repository
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+*.asc
+*.properties.local
+secrets.properties
+google-services.json
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+
+# APKs/AABs belong in GitHub Releases, not source history
+*.apk
+*.aab
+*.apks
+
+# Local generated showcase and delivery archives
+*.zip
+
+# Local handoff scripts (not part of the app repository)
+/PUSH_TO_GITHUB.bat
+/UPLOAD-INSTRUCTIONS.txt

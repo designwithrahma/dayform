@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">DAYFORM</string>
+    <string name="greeting_prefix">Hello, %1$s</string>
+    <string name="greeting_subtitle">Let\'s make today count.</string>
+    <string name="tasks_completed_label">Tasks\nCompleted</string>
+    <string name="tasks_planned_label">Tasks planned</string>
+    <string name="priority_tasks_heading">Priority Tasks</string>
+    <string name="task_details_title">Task Details</string>
+    <string name="description_heading">Description</string>
+    <string name="subtasks_heading">Sub Tasks</string>
+    <string name="add_subtask_placeholder">Add task to list</string>
+    <string name="your_tasks_title">Your Tasks</string>
+    <string name="insights_title">Insights</string>
+    <string name="profile_title">Profile &amp; Settings</string>
+    <string name="create_first_task">Create your first task</string>
+    <string name="start_fresh">Start Fresh</string>
+    <string name="notification_channel_name">Task Reminders</string>
+    <string name="notification_channel_desc">Notifications for scheduled task deadlines and reminders</string>
+</resources>

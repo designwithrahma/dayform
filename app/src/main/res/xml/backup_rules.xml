@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <exclude domain="database" path="dayform_tasks.db" />
+    <exclude domain="database" path="dayform_tasks.db-shm" />
+    <exclude domain="database" path="dayform_tasks.db-wal" />
+    <exclude domain="file" path="datastore" />
+</full-backup-content>
