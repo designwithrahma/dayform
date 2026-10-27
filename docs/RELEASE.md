@@ -12,7 +12,7 @@ This document describes the release procedure; it is **not** evidence that a sig
 
 ## 2. Create a signed APK
 
-Follow [BUILD.md](BUILD.md). Do **not** commit the keystore or passwords. After setting all four `DAYFORM_*` environment variables, build with:
+Follow [BUILD.md](BUILD.md) and the [Windows signing and GitHub Secrets guide](SIGNING_SETUP_WINDOWS.md). Do **not** commit the keystore or passwords. After setting all four `DAYFORM_*` environment variables, build with:
 
 ```bash
 ./gradlew :app:assembleRelease
@@ -37,14 +37,15 @@ sha256sum DAYFORM-v1.0.0.apk > SHA256SUMS.txt
 
 ## 3. GitHub delivery
 
-1. Upload the extracted source **contents**, not the outer ZIP, to the new GitHub repository. Check the `gradlew` executable bit (`git update-index --chmod=+x gradlew` if necessary).
-2. Confirm `.github/workflows/android-ci.yml` completes successfully and no secrets appear in Git history.
-3. Set up protected GitHub Actions repository secrets if you want the optional release workflow: `DAYFORM_KEYSTORE_B64` (base64 of the JKS), `DAYFORM_STORE_PASSWORD`, `DAYFORM_KEY_ALIAS`, `DAYFORM_KEY_PASSWORD`.
-4. Commit and push the source, then tag that exact commit `v1.0.0` (`git tag v1.0.0 && git push origin v1.0.0`).
-5. Either manually create a **draft** release for that tag and upload your signed `DAYFORM-v1.0.0.apk` and `SHA256SUMS.txt`, or dispatch the `Signed draft release` workflow against that tag after configuring secrets.
-6. Paste the appropriate text from `docs/RELEASE_NOTES_TEMPLATE.md`. Verify installed behavior and checksum, then publish the draft.
+1. The public source repository is already pushed to `main`, and Android CI has passed. Verify the latest `main` CI status again after release-workflow edits.
+2. On your own computer, create or reuse a long-term signing key and privately back it up. Follow [SIGNING_SETUP_WINDOWS.md](SIGNING_SETUP_WINDOWS.md).
+3. Add the four protected repository secrets: `DAYFORM_KEYSTORE_B64`, `DAYFORM_STORE_PASSWORD`, `DAYFORM_KEY_ALIAS`, `DAYFORM_KEY_PASSWORD`.
+4. Open [Signed draft release](https://github.com/designwithrahma/dayform/actions/workflows/release.yml), choose **Run workflow**, use branch `main` and input `v1.0.0`.
+5. The workflow validates the version, checks for an existing tag/release, runs tests and lint, builds and verifies the signed release APK, computes its SHA-256 checksum, and creates a **draft** with both assets. The tag is created automatically at the exact workflow commit only if these steps succeed. **Do not manually create the tag first.**
+6. As maintainer, download the draft APK and test it on Android devices, including backup/import and upgrade signing continuity where applicable. Check the attached `SHA256SUMS.txt`.
+7. Edit the draft notes to record real tested devices and known issues, remove the release-note template's editor instructions, then publish the draft.
 
-The included release workflow intentionally creates a **draft**; publishing requires a human verification step.
+**The workflow never publishes the draft for you.** Do not publish before signature/device testing and source/asset licensing checks.
 
 ## 4. Security / compatibility
 

@@ -42,7 +42,7 @@ The Home, task editor, insights, and settings images are **automated test-render
 
 **Once a signed release has been built and published**, open the repository's **Releases** tab and download `DAYFORM-v1.0.0.apk`. Check the included SHA-256 digest before installation. Android may ask you to allow installation from your browser or file manager.
 
-> **Publication status:** The source repository is prepared, but a signed release APK is not included in this source archive. The supplied existing APK was a debug build and must not be represented as an official release. See [Release guide](docs/RELEASE.md).
+> **Publication status:** The source repository is prepared, but a signed release APK is not included in this source archive. The supplied existing APK was a debug build and must not be represented as an official release. See [Release guide](docs/RELEASE.md) and [Windows signing setup](docs/SIGNING_SETUP_WINDOWS.md).
 
 ## Build from source
 

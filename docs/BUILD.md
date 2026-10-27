@@ -26,6 +26,8 @@ A device or emulator is required to run `:app:connectedDebugAndroidTest`. Screen
 
 ## Release signing
 
+If preparing GitHub Releases on Windows, follow [private signing key & GitHub Secrets setup](SIGNING_SETUP_WINDOWS.md).
+
 Only use a private keystore you own and safely back up. Set these four environment variables **locally** (or inject them using protected CI secrets):
 
 - `DAYFORM_KEYSTORE_PATH`: absolute path of the signing `.jks` file.
