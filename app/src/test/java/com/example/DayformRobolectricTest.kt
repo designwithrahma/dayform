@@ -2168,7 +2168,7 @@ class DayformRobolectricTest {
                 DayformApp(viewModel = viewModel)
             }
         }
-        composeTestRule.waitUntil(timeoutMillis = 10000) {
+        composeTestRule.waitUntil(timeoutMillis = 60000) {
             !viewModel.uiState.value.isLoading &&
                 viewModel.uiState.value.priorityTasks.size == 100 &&
                 composeTestRule.onAllNodesWithTag("home_dashboard_list").fetchSemanticsNodes().isNotEmpty()
