@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/screenshots/home.png" alt="DAYFORM home screen — test-rendered UI capture" width="240">
+<img src="docs/assets/dayform-app-icon-512px.png" alt="DAYFORM app icon" width="220">
 
 # DAYFORM
 
@@ -26,11 +26,11 @@ DAYFORM is a native Android task-management app with an uncluttered dark interfa
 
 ## Preview
 
-These images are **automated test-rendered UI captures** supplied with the source project, not independently verified physical-device screenshots. They show a populated example workspace; a new install has no sample tasks.
+The task editor, insights, and settings images are **automated test-rendered UI captures** supplied with the source project, not independently verified physical-device screenshots. The first image is the DAYFORM app icon. They show a populated example workspace; a new install has no sample tasks.
 
-| Home | Task editor | Insights | Settings |
+| App icon | Task editor | Insights | Settings |
 | :---: | :---: | :---: | :---: |
-| <img src="docs/screenshots/home.png" width="180" alt="Home"/> | <img src="docs/screenshots/task-editor.png" width="180" alt="Edit task"/> | <img src="docs/screenshots/insights.png" width="180" alt="Insights"/> | <img src="docs/screenshots/settings.png" width="180" alt="Settings"/> |
+| <img src="docs/assets/dayform-app-icon-512px.png" width="180" alt="DAYFORM app icon"/> | <img src="docs/screenshots/task-editor.png" width="180" alt="Edit task"/> | <img src="docs/screenshots/insights.png" width="180" alt="Insights"/> | <img src="docs/screenshots/settings.png" width="180" alt="Settings"/> |
 
 ## Requirements
 
