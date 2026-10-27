@@ -4,33 +4,51 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Existing version tag, e.g. v1.0.0'
+        description: 'Version to build and create as a draft (e.g. v1.0.0)'
         required: true
         type: string
+        default: 'v1.0.0'
+
+concurrency:
+  group: dayform-signed-release
+  cancel-in-progress: false
 
 permissions:
   contents: write
 
 jobs:
   signed-release:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Check out tagged source
+      - name: Check out main at the selected commit
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.tag }}
           persist-credentials: false
       - name: Confirm tag and Gradle version
         env:
           RELEASE_TAG: ${{ inputs.tag }}
         run: |
-          case "$RELEASE_TAG" in
-            v[0-9]*.[0-9]*.[0-9]*) ;;
-            *) echo 'Provide a version tag such as v1.0.0'; exit 1 ;;
-          esac
+          if ! [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo 'Provide an exact version like v1.0.0'
+            exit 1
+          fi
           version="${RELEASE_TAG#v}"
           grep -Fq "versionName = \"${version}\"" app/build.gradle.kts || { echo 'Release tag does not match app versionName'; exit 1; }
+      - name: Ensure release version is not already published or tagged
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'Release already exists; review it rather than replacing assets.'
+            exit 1
+          fi
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'Tag already exists. Review its target before continuing.'
+            exit 1
+          fi
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
@@ -53,15 +71,16 @@ jobs:
           printf '%s' "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/dayform-release.jks"
           chmod 600 "$RUNNER_TEMP/dayform-release.jks"
           echo "DAYFORM_KEYSTORE_PATH=$RUNNER_TEMP/dayform-release.jks" >> "$GITHUB_ENV"
-          echo "DAYFORM_STORE_PASSWORD=$STORE_PASSWORD" >> "$GITHUB_ENV"
-          echo "DAYFORM_KEY_ALIAS=$KEY_ALIAS" >> "$GITHUB_ENV"
-          echo "DAYFORM_KEY_PASSWORD=$KEY_PASSWORD" >> "$GITHUB_ENV"
       - name: Compile and run core tests
         run: |
           chmod +x ./gradlew
           ./gradlew --no-daemon :app:testDebugUnitTest --tests com.example.DayformUnitTest --tests com.example.DayformRobolectricTest
           ./gradlew --no-daemon :app:lintDebug
       - name: Build signed release APK
+        env:
+          DAYFORM_STORE_PASSWORD: ${{ secrets.DAYFORM_STORE_PASSWORD }}
+          DAYFORM_KEY_ALIAS: ${{ secrets.DAYFORM_KEY_ALIAS }}
+          DAYFORM_KEY_PASSWORD: ${{ secrets.DAYFORM_KEY_PASSWORD }}
         run: ./gradlew --no-daemon :app:assembleRelease
       - name: Verify signature and prepare checksums
         env:
@@ -71,7 +90,7 @@ jobs:
           cp app/build/outputs/apk/release/app-release.apk "dist/DAYFORM-${RELEASE_TAG}.apk"
           "${ANDROID_HOME}/build-tools/36.0.0/apksigner" verify --verbose --print-certs "dist/DAYFORM-${RELEASE_TAG}.apk"
           cd dist && sha256sum "DAYFORM-${RELEASE_TAG}.apk" > SHA256SUMS.txt
-      - name: Create private-to-review draft release
+      - name: Create draft release for manual device review
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ inputs.tag }}
@@ -81,5 +100,5 @@ jobs:
             exit 1
           fi
           gh release create "$RELEASE_TAG" "dist/DAYFORM-${RELEASE_TAG}.apk" dist/SHA256SUMS.txt \
-            --draft --verify-tag --title "DAYFORM ${RELEASE_TAG}" \
+            --draft --target "$GITHUB_SHA" --title "DAYFORM ${RELEASE_TAG}" \
             --notes-file docs/RELEASE_NOTES_TEMPLATE.md
