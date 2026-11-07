@@ -485,8 +485,10 @@ class DayformRobolectricTest {
     }
 
     @Test
-    fun sharedBoundsMorphAndMidTransitionClockVerification(): Unit = runBlocking {
-        seedTestWorkspaceWithFixtures("Jayson")
+    fun sharedBoundsMorphAndMidTransitionClockVerification() {
+        // Seed the Room fixture synchronously, then let Compose test synchronization
+        // run without an enclosing runBlocking on the JUnit test thread.
+        runBlocking { seedTestWorkspaceWithFixtures("Jayson") }
         val viewModel = createTestViewModel()
 
         composeTestRule.setContent {
@@ -2168,12 +2170,16 @@ class DayformRobolectricTest {
                 DayformApp(viewModel = viewModel)
             }
         }
+        // Wait for the repository-backed ViewModel to finish loading the seeded tasks.
+        // Do not repeatedly traverse the Compose semantics tree while the 100-task
+        // dashboard is still composing: that makes this Robolectric stress test
+        // timing-sensitive on slower GitHub Actions runners.
         composeTestRule.waitUntil(timeoutMillis = 60000) {
             !viewModel.uiState.value.isLoading &&
-                viewModel.uiState.value.priorityTasks.size == 100 &&
-                composeTestRule.onAllNodesWithTag("home_dashboard_list").fetchSemanticsNodes().isNotEmpty()
+                viewModel.uiState.value.priorityTasks.size == 100
         }
         composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("home_dashboard_list").assertExists()
 
         // 1. Verify Home profile avatar is completely removed, while notification bell & greeting remain intact
         composeTestRule.onNodeWithTag("home_avatar_button").assertDoesNotExist()
