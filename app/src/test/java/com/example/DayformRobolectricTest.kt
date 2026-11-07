@@ -485,8 +485,10 @@ class DayformRobolectricTest {
     }
 
     @Test
-    fun sharedBoundsMorphAndMidTransitionClockVerification(): Unit = runBlocking {
-        seedTestWorkspaceWithFixtures("Jayson")
+    fun sharedBoundsMorphAndMidTransitionClockVerification() {
+        // Seed the Room fixture synchronously, then let Compose test synchronization
+        // run without an enclosing runBlocking on the JUnit test thread.
+        runBlocking { seedTestWorkspaceWithFixtures("Jayson") }
         val viewModel = createTestViewModel()
 
         composeTestRule.setContent {
