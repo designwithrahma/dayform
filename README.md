@@ -48,17 +48,14 @@ DAYFORM does not include built-in cloud synchronization. The app's source manife
 
 ## Download and install
 
-**Public release status:** DAYFORM `v1.0.0` has a signed *draft* release, but the APK has **not yet been published for public download**. The draft must be reviewed against the current source and tested on Android devices before publication.
+**Latest public release: [DAYFORM v1.0.0](https://github.com/designwithrahma/dayform/releases/tag/v1.0.0)** — a signed Android APK with a published SHA-256 checksum. The signed APK was built through the repository's release workflow. The maintainer reported testing it on an Android phone before publication.
 
-When the release is published:
+1. **[Download DAYFORM-v1.0.0.apk](https://github.com/designwithrahma/dayform/releases/download/v1.0.0/DAYFORM-v1.0.0.apk)** from the official GitHub release.
+2. Verify the APK's SHA-256 hash against the release's `SHA256SUMS.txt`.
+3. Install it on Android 7.0 or later. Android may ask you to allow installation from your browser or file manager.
+4. Allow notifications and, where required, exact-alarm access to receive reminders.
 
-1. Open **[DAYFORM GitHub Releases](https://github.com/designwithrahma/dayform/releases)**.
-2. Download `DAYFORM-v1.0.0.apk` from the published release assets.
-3. Compare its SHA-256 hash with the accompanying `SHA256SUMS.txt`.
-4. Install it on Android 7.0 or later. Android may ask you to allow installation from your browser or file manager.
-5. Allow notifications and, where required, exact-alarm access to receive reminders.
-
-**Important:** Back up existing tasks before uninstalling or changing app signing versions. A release-signed APK may not install directly over an older debug-signed build. See the [release guide](docs/RELEASE.md) for the validation process.
+**Important:** Back up existing tasks before uninstalling or changing app signing versions. A release-signed APK may not install directly over an older debug-signed build. See the [release guide](docs/RELEASE.md) for details.
 
 ## Privacy and local data
 
