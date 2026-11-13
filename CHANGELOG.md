@@ -1,19 +1,23 @@
 # Changelog
 
-This project uses a versioned changelog for public releases. Versions listed under **Unreleased** have not yet been published as GitHub Releases.
-
 ## [Unreleased]
 
-### Repository preparation
+No subsequent public release has been announced.
 
-- Organized a self-contained Android source repository with required Gradle wrapper and Room schemas.
-- Removed exported development artifacts, duplicated showcase media, and unused cloud/service build hooks.
-- Added documentation, source-license notice, contribution and security policies, and CI/release workflows.
-- Prepared optional environment-based signing without adding private credentials.
-- Set `versionName` to `1.0.0` (kept `versionCode` 1; package ID and Room schema unchanged).
+## [1.0.0] — 2026-11-13
 
-## [1.0.0] — pending a signed, tested APK
+First public GitHub APK release of DAYFORM, a native offline-first Android task manager.
 
-Initial planned public release: task and subtask management, reminders, calendar, local workspace backup/import, preferences and productivity insights.
+### Features
+- Create and manage tasks, subtasks, priorities, categories, due dates, and reminders.
+- Calendar, search, filters, completion statistics, streaks, and insights.
+- Local Room storage, DataStore preferences, and JSON export/import.
+- Android 7.0+ compatibility with no sign-in or built-in cloud sync.
 
-*Do not treat this section as evidence that v1.0.0 has shipped.*
+### Release preparation
+- Organized Android source, Gradle wrapper, Room schemas, license and contributor documentation.
+- Added Android CI, a signed release workflow, release verification and checksum instructions.
+- Published a release-signed APK and `SHA256SUMS.txt` under [v1.0.0](https://github.com/designwithrahma/dayform/releases/tag/v1.0.0).
+- Maintainer reported testing the APK on an Android phone before publication. The device model and test scope were not documented.
+
+The v1.0.0 APK was built from the October 27 release commit. Later main-branch changes through November 13 updated tests, licensing metadata, and documentation, not the application source.
