@@ -1,6 +1,6 @@
 # Creating a DAYFORM GitHub Release
 
-This document describes the release procedure; it is **not** evidence that a signed APK has already been produced.
+**Publication update (2026-11-13):** [DAYFORM v1.0.0](https://github.com/designwithrahma/dayform/releases/tag/v1.0.0) has been published with a signed APK and SHA-256 checksum. The steps below document the original process and should be adapted for **future versions**, not rerun for the already published v1.0.0 tag. Bump both `versionName` and `versionCode` for the next release and preserve signing-key compatibility.
 
 ## 1. Preconditions
 
