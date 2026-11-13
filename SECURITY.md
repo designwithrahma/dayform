@@ -2,7 +2,7 @@
 
 ## Supported releases
 
-No independently verified public release is available in this source handoff. Security fixes will be prioritized for the latest maintained source and any future published stable release.
+DAYFORM v1.0.0 is publicly available as a signed GitHub Release. The maintainer reported testing the APK on an Android phone, but this is not an independent security audit. Security fixes will be prioritized for the latest maintained source and any currently supported public release.
 
 ## Reporting a vulnerability
 
