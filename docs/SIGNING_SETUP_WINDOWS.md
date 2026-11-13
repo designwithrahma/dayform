@@ -1,6 +1,6 @@
 # DAYFORM release signing — Windows
 
-This guide creates or reuses the private signing key needed for GitHub's **Signed draft release** workflow. The workflow publishes a **draft only** after building and verifying the signed APK; it does not make the app public automatically.
+**Publication update (2026-11-13):** [v1.0.0 is already public](https://github.com/designwithrahma/dayform/releases/tag/v1.0.0). Keep the existing signing key securely backed up. The instructions below are the original setup process; for future versions, update the version name/code and use a new tag rather than reusing `v1.0.0`. The signed-release workflow makes drafts, not public releases automatically.
 
 ## 1. Protect your app's signing identity
 
